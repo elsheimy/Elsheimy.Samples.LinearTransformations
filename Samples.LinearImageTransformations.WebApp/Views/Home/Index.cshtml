@@ -1,0 +1,112 @@
+﻿@model TransformationsViewModel
+
+<div class="row">
+  <div class="col">
+    <form method="post" enctype="multipart/form-data">
+      <div class="form-row mb-2">
+        <div class="col-md-12">
+          <label for="file" class="control-label">Image File:</label>
+          <div class="custom-file">
+            <input asp-for="File" class="custom-file-input" id="file">
+            <label class="custom-file-label" for="file">Choose Image</label>
+          </div>
+          <span asp-validation-for="File" class="text-danger"></span>
+        </div>
+      </div>
+
+      <div class="form-row mb-2">
+        <div class="col-md-8">
+          <label for="angle">Rotation Angel (Degrees):</label>
+          <input type="number" asp-for="Angle" class="form-control" min="-360" max="360" />
+          <div class="badge badge-light">(-360 - 360)</div>
+          <span asp-validation-for="Angle" class="text-danger"></span>
+        </div>
+      </div>
+
+
+
+      <div class="form-row mb-2">
+        <div class="col-md-6">
+          <label for="angle">Horizontal Stretch:</label>
+          <input type="number" asp-for="StretchHorizontal" class="form-control" min="-360" max="360" />
+          <div class="badge badge-light">(-100 - 100)</div>
+          <span asp-validation-for="StretchHorizontal" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+          <label for="angle">Vertical Stretch:</label>
+          <input type="number" asp-for="StretchVertical" class="form-control" min="-360" max="360" />
+          <div class="badge badge-light">(-100 - 100)</div>
+          <span asp-validation-for="StretchVertical" class="text-danger"></span>
+        </div>
+      </div>
+
+      <div class="form-row mb-2">
+        <div class="col-md-3">
+          <label for="angle">Alpha:</label>
+          <input type="number" asp-for="DensityAlpha" class="form-control" min="-100" max="200" />
+          <div class="badge badge-light">(0 - 200)</div>
+          <span asp-validation-for="DensityAlpha" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+          <label for="angle">Red:</label>
+          <input type="number" asp-for="DensityRed" class="form-control" min="-100" max="200" />
+          <div class="badge badge-light">(0 - 200)</div>
+          <span asp-validation-for="DensityRed" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+          <label for="angle">Alpha:</label>
+          <input type="number" asp-for="DensityGreen" class="form-control" min="-100" max="200" />
+          <div class="badge badge-light">(0 - 200)</div>
+          <span asp-validation-for="DensityGreen" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+          <label for="angle">Blue:</label>
+          <input type="number" asp-for="DensityBlue" class="form-control" min="-100" max="200" />
+          <div class="badge badge-light">(0 - 200)</div>
+          <span asp-validation-for="DensityBlue" class="text-danger"></span>
+        </div>
+      </div>
+      <div class="form-row  mb-2">
+        <div class="col-md-4">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="flipHorizontally" asp-for="FlipHorizontally">
+            <label class="custom-control-label" for="flipHorizontally">Flip horizontally</label>
+          </div>
+          <span asp-validation-for="FlipHorizontally" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="flipVertically" asp-for="FlipVertically">
+            <label class="custom-control-label" for="flipVertically">Flip vertically</label>
+          </div>
+          <span asp-validation-for="FlipVertically" class="text-danger"></span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-3">
+          <input type="submit" class="btn btn-primary" value="Apply" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col">
+    <img id="img" src="@(Model.ImageData)" class="img-fluid" />
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('#file').on('change', function () { loadFile(this); });
+
+  function loadFile(input) {
+    if (input.files && input.files[0] && FileReader) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#img').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+
+    }
+  }
+</script>
